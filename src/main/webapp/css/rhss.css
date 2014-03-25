@@ -1,0 +1,26 @@
+@import url(http://fonts.googleapis.com/css?family=Exo+2);
+
+p, h1, h2, h3, li, td {
+    font-family: 'Exo 2', sans-serif;
+}
+
+.credits {
+    padding: 5px;
+}
+
+.credits.float {
+    float: left;
+}
+
+.credits span {
+    vertical-align: middle;
+}
+
+.credits img {
+    padding: 0 10px;
+    vertical-align: middle;
+}
+
+h1 {
+    clear: both;
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="RHSS">
+<head>
+    <script type="text/javascript" src="/script/lib/angular.min.js"></script>
+    <script type="text/javascript" src="/script/app/rhss.js"></script>
+    <script type="text/javascript" src="/script/app/controller/containerlist.js"></script>
+
+    <link rel="stylesheet" href="/css/rhss.css" media="screen">
+
+    <title>JOSS demo for RedHat Storage Server</title>
+</head>
+<body ng-controller="ContainerList">
+    <p class="credits">
+        <img src="/images/rhss.jpg"/>
+    </p>
+    <p class="credits float">
+        <span>Demo brought to you by </span>
+        <a href="http://www.42.nl"><img src="/images/42-logo.png" height="40px"/></a>
+    </p>
+    <p class="credits float">
+        <span>Powered by </span>
+        <a href="http://joss.javaswift.org"><img src="/images/joss-logo.png" height="40px"/></a>
+    </p>
+    <h1>Containers</h1>
+    <section data-ng-repeat="container in containers">
+        <h2>{{ container.name }}</h2>
+        <button type="button" class="btn btn-danger" ng-click="addContainer()">Add container</button>
+        <button type="button" class="btn btn-danger" ng-click="removeContainer(container.name)">Delete container</button>
+
+        <form method="post" action="/upload" enctype="multipart/form-data">
+            <input type="hidden" name="containerName" value="{{container.name}}" />
+            <p>
+                <label>File: <input type="file" name="file" size="60"/></label> <input type="submit" value="Upload"/>
+            </p>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>Last modified</td>
+                    <td>Actions</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="object in container.objects">
+                    <td><a ng-href="{{object.url}}">{{object.name}}</a></td>
+                    <td>{{object.lastModified}}</td>
+                    <td class="actions">
+                        <button type="button" class="btn btn-danger" ng-click="removeObject(container.name, object.name)">Delete object</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</body>
+</html>
