@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -47,10 +48,11 @@ public class JossController {
     }
 
     @RequestMapping(value = "/upload", method = POST)
-    public void upload(@RequestParam MultipartFile file, @RequestParam String containerName) throws IOException {
+    public void upload(@RequestParam MultipartFile file, @RequestParam String containerName, HttpServletResponse response) throws IOException {
         Container container = account.getContainer(containerName);
         StoredObject object = container.getObject(file.getOriginalFilename());
         object.uploadObject(file.getInputStream());
+        response.sendRedirect("/");
     }
 
     @RequestMapping(value = "/reauthenticate", method = POST)
