@@ -10,31 +10,41 @@
     <title>JOSS demo for RedHat Storage Server</title>
 </head>
 <body ng-controller="ContainerList">
-    <p class="credits">
-        <img src="/images/rhss.jpg"/>
-    </p>
-    <p class="credits float">
-        <span>Demo brought to you by </span>
-        <a href="http://www.42.nl"><img src="/images/42-logo.png" height="40px"/></a>
-    </p>
-    <p class="credits float">
-        <span>Powered by </span>
-        <a href="http://joss.javaswift.org"><img src="/images/joss-logo.png" height="40px"/></a>
-    </p>
-    <h1>Containers</h1>
-    <section data-ng-repeat="container in containers">
-        <h2>{{ container.name }}</h2>
-        <button type="button" class="btn btn-danger" ng-click="addContainer()">Add container</button>
-        <button type="button" class="btn btn-danger" ng-click="removeContainer(container.name)">Delete container</button>
+    <div>
+        <p class="credits" style="float: left;">
+            <img src="/images/rhss.jpg"/>
+        </p>
+        <p class="credits" style="float: right;">
+            <span>Demo brought to you by </span>
+            <a href="http://www.42.nl"><img src="/images/42-logo.png" height="40px"/></a>
+            <span>Powered by </span>
+            <a href="http://joss.javaswift.org"><img src="/images/joss-logo.png" height="40px"/></a>
+        </p>
+    </div>
+    <div>
+        <h1 style="float: left;">Containers</h1>
+        <button type="button" class="btn btn-danger" style="float: right;" ng-click="reauthenticate()">Re-authenticate</button>
+        <button type="button" class="btn btn-danger" style="float: right;" ng-click="addContainer()">Add container</button>
+    </div>
+    <div style="clear: both;" >
+        <section data-ng-repeat="container in containers">
+            <div class="tab" data-ng-class="selectedContainer == container.name ? 'selected-tab' : ''" data-ng-click="selectContainer(container.name)">
+                {{ container.name }}
+            </div>
+        </section>
+    </div>
+    <section data-ng-repeat="container in containers" data-ng-show="selectedContainer == container.name">
+        <div>
+            <h2 style="float: left;">{{ container.name }}</h2>
+            <button type="button" class="btn btn-danger" style="float: right;" ng-click="removeContainer(container.name)">Delete container</button>
 
-        <form method="post" action="/upload" enctype="multipart/form-data">
-            <input type="hidden" name="containerName" value="{{container.name}}" />
-            <p>
+            <form method="post" action="/upload" enctype="multipart/form-data" style="float: right;">
+                <input type="hidden" name="containerName" value="{{container.name}}" />
                 <label>File: <input type="file" name="file" size="60"/></label> <input type="submit" value="Upload"/>
-            </p>
-        </form>
+            </form>
+        </div>
 
-        <table>
+        <table style="clear: both;">
             <thead>
                 <tr>
                     <td>Name</td>

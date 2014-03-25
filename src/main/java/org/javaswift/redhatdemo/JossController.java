@@ -23,12 +23,7 @@ public class JossController {
     private Account account;
 
     private JossController() {
-        account = new AccountFactory()
-                .setUsername("")
-                .setPassword("")
-                .setAuthUrl("")
-                .setAuthenticationMethod(AuthenticationMethod.BASIC)
-                .createAccount();
+        reauthenticate();
     }
 
     @RequestMapping(value = "/add-container", method = POST)
@@ -55,9 +50,17 @@ public class JossController {
     public void upload(@RequestParam MultipartFile file, @RequestParam String containerName) throws IOException {
         Container container = account.getContainer(containerName);
         StoredObject object = container.getObject(file.getOriginalFilename());
-//        object.uploadObject(new byte[] { 0x01, 0x02, 0x03 });
         object.uploadObject(file.getInputStream());
-        System.out.println("Object exists? "+object.exists());
+    }
+
+    @RequestMapping(value = "/reauthenticate", method = POST)
+    public void reauthenticate() {
+        account = new AccountFactory()
+                .setUsername("")
+                .setPassword("")
+                .setAuthUrl("")
+                .setAuthenticationMethod(AuthenticationMethod.BASIC)
+                .createAccount();
     }
 
     @RequestMapping(value = "/containers", method = GET)

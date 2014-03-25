@@ -8,10 +8,6 @@ p, h1, h2, h3, li, td {
     padding: 5px;
 }
 
-.credits.float {
-    float: left;
-}
-
 .credits span {
     vertical-align: middle;
 }
@@ -21,6 +17,30 @@ p, h1, h2, h3, li, td {
     vertical-align: middle;
 }
 
-h1 {
+h1, h2 {
     clear: both;
+}
+
+.tab {
+    margin: 3px;
+    float: left;
+    border: 1px solid #333;
+    border-radius: 5px 5px 0 0;
+    padding: 4px;
+    cursor: pointer;
+    background-color: #ddd;
+    color: #444;
+}
+
+.selected-tab {
+    box-shadow: 2px 2px 5px #15b8dd;
+    background-color: #eee;
+}
+
+form {
+    margin-left: 10px;
+}
+
+button {
+    height: 22px;
 }
